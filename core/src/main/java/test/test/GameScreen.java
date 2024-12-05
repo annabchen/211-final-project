@@ -1,8 +1,8 @@
 package test.test;
 
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -39,6 +39,7 @@ public class GameScreen implements Screen {
     Rectangle enemyRectangle;
     Rectangle enemyRectangle2;
     int health = 100;
+
     public GameScreen(final DungeonAdventure game) {
         this.game = game;
 
@@ -82,44 +83,45 @@ public class GameScreen implements Screen {
         logic();
         draw();
     }
-    private void input(){
+
+    private void input() {
         // dictates how fast the player moves
         float speed = 4f;
         float delta = Gdx.graphics.getDeltaTime();
 
         // check if a key is pressed every time a frame is drawn
         // start with diagonals
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.UP)) {
             // move the player left + up
             playerSprite.translateX(-speed * delta);
             playerSprite.translateY(speed * delta);
-        } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.UP)) {
             // move player right + up
             playerSprite.translateX(speed * delta);
             playerSprite.translateY(speed * delta);
-        } else if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             // move player left + down
             playerSprite.translateX(-speed * delta);
             playerSprite.translateY(-speed * delta);
-        } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             // move player right + down
             playerSprite.translateX(speed * delta);
             playerSprite.translateY(-speed * delta);
-        }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             // move the player right
             playerSprite.translateX(speed * delta);
-        } else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             // move the player left
             playerSprite.translateX(-speed * delta);
-        } else if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             // move player up
             playerSprite.translateY(speed * delta);
-        } else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             // move player down
             playerSprite.translateY(-speed * delta);
         }
 
-        if(Gdx.input.isTouched()) {
+        if (Gdx.input.isTouched()) {
             // if user has clicked or tapped the screen move player to where touch happened
             touchPos.set(Gdx.input.getX(), Gdx.input.getY());
             // convert the units to the world units of the viewport
@@ -128,7 +130,8 @@ public class GameScreen implements Screen {
             playerSprite.setCenterX(touchPos.x);
         }
     }
-    private void logic(){
+
+    private void logic() {
         // store worldWidth and worldHeight as local variables
         float worldWidth = game.viewport.getWorldWidth();
         float worldHeight = game.viewport.getWorldHeight();
@@ -145,7 +148,7 @@ public class GameScreen implements Screen {
         playerRectangle.set(playerSprite.getX(), playerSprite.getY(), playerWidth, playerHeight);
         // loop through the enemy sprites to prevent out of bounds errors
         // otheriwse- using a normal loop, would get laggier the longer the game ran
-        for (int i = enemySprites.size - 1; i >= 0; i--){
+        for (int i = enemySprites.size - 1; i >= 0; i--) {
             Sprite enemySprite = enemySprites.get(i);
             float enemyWidth = enemySprite.getWidth();
             float enemyHeight = enemySprite.getHeight();
@@ -154,11 +157,11 @@ public class GameScreen implements Screen {
             // apply the enemy position and size to the enemyRectangle
             enemyRectangle.set(enemySprite.getX(), enemySprite.getY(), enemyWidth, enemyHeight);
             // remove if the top of the enemy goes below the bottom of the window
-            if (enemySprite.getY() < -enemyHeight){
+            if (enemySprite.getY() < -enemyHeight) {
                 enemySprites.removeIndex(i);
-            } else if (playerRectangle.overlaps(enemyRectangle)){ // check for overlap
+            } else if (playerRectangle.overlaps(enemyRectangle)) { // check for overlap
                 health -= 5;
-                if(health <= 0){
+                if (health <= 0) {
                     game.setScreen(new EndScreen(game));
                     dispose();
                 }
@@ -167,7 +170,7 @@ public class GameScreen implements Screen {
             }
         }
         // implement same loop but for horizontally travelling sprites:
-        for (int i = enemySprites2.size - 1; i >= 0; i--){
+        for (int i = enemySprites2.size - 1; i >= 0; i--) {
             Sprite enemySprite2 = enemySprites2.get(i);
             float enemyWidth = enemySprite2.getWidth();
             float enemyHeight = enemySprite2.getHeight();
@@ -176,11 +179,11 @@ public class GameScreen implements Screen {
             // apply the enemy position and size to the enemyRectangle
             enemyRectangle2.set(enemySprite2.getX(), enemySprite2.getY(), enemyWidth, enemyHeight);
             // remove if the top of the enemy goes below the bottom of the window
-            if (enemySprite2.getY() < -enemyHeight){
+            if (enemySprite2.getY() < -enemyHeight) {
                 enemySprites2.removeIndex(i);
-            } else if (playerRectangle.overlaps(enemyRectangle2)){ // check for overlap
+            } else if (playerRectangle.overlaps(enemyRectangle2)) { // check for overlap
                 health -= 5;
-                if(health <= 0){
+                if (health <= 0) {
                     game.setScreen(new EndScreen(game));
                     dispose();
                 }
@@ -191,13 +194,13 @@ public class GameScreen implements Screen {
 
         // spacing out the enemy
         enemyTimer += delta;
-        if(enemyTimer > .5f){ // check if it has been over a second
+        if (enemyTimer > .5f) { // check if it has been over a second
             enemyTimer = 0; // reset timer
             createEnemy(); // create enemy
         }
     }
 
-    private void draw(){
+    private void draw() {
         // clears screen
         ScreenUtils.clear(Color.BLACK);
         game.viewport.apply();
@@ -216,10 +219,10 @@ public class GameScreen implements Screen {
         game.font.draw(game.batch, "Health: " + health, 0, worldHeight);
 
         // draw each enemy
-        for (Sprite enemySprite : enemySprites){
+        for (Sprite enemySprite : enemySprites) {
             enemySprite.draw(game.batch);
         }
-        for (Sprite enemySprite2 : enemySprites2){
+        for (Sprite enemySprite2 : enemySprites2) {
             enemySprite2.draw(game.batch);
         }
 
@@ -234,14 +237,14 @@ public class GameScreen implements Screen {
         float worldHeight = game.viewport.getWorldHeight();
         // create enemy sprite
         Sprite enemySprite = new Sprite(enemyTexture);
-        enemySprite.setSize(enemyWidth,enemyHeight);
+        enemySprite.setSize(enemyWidth, enemyHeight);
         enemySprite.setX(MathUtils.random(0f, worldWidth - enemyWidth));
         enemySprite.setY(worldHeight);
         enemySprites.add(enemySprite); // adding it to the list
 
         // create enemy sprite
         Sprite enemySprite2 = new Sprite(enemyTexture);
-        enemySprite2.setSize(enemyWidth,enemyHeight);
+        enemySprite2.setSize(enemyWidth, enemyHeight);
         enemySprite2.setX(0);
         enemySprite2.setY(MathUtils.random(0f, worldWidth - enemyWidth));
         enemySprites2.add(enemySprite2); // adding it to the list

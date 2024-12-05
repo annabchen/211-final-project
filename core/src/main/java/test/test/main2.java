@@ -146,7 +146,7 @@ public class main2 extends ApplicationAdapter {
             dropSprite.draw(batch);
         }
 
-        font.draw(batch, score+"", 0.5f, worldHeight - 0.5f);
+        font.draw(batch, score + "", 0.5f, worldHeight - 0.5f);
         batch.end();
     }
 

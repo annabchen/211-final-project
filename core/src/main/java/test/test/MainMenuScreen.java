@@ -8,8 +8,11 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class MainMenuScreen implements Screen {
     // only parameter necessary for this game is an instance of Drop, so we can use its methods and fields
     final DungeonAdventure game;
-    public MainMenuScreen(final DungeonAdventure game, Vertex root) {
+    private final Vertex vertex;
+
+    public MainMenuScreen(final DungeonAdventure game, Vertex vertex) {
         this.game = game;
+        this.vertex = vertex;
     }
 
     @Override
@@ -32,8 +35,8 @@ public class MainMenuScreen implements Screen {
         game.batch.end();
 
         // if screen has been touched, then dispose of the current menu and set screen to a GameScreen instance
-        if (Gdx.input.isTouched()){
-            game.setScreen(new StartRoom(game, root));
+        if (Gdx.input.isTouched()) {
+            game.setScreen(new StartRoom(game, vertex));
             dispose();
         }
     }

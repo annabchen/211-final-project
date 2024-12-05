@@ -8,11 +8,12 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class StartRoom implements Screen {
     // only parameter necessary for this game is an instance of Drop, so we can use its methods and fields
     final DungeonAdventure game;
-    private Vertex root;
-    public StartRoom(final DungeonAdventure game, Vertex root) {
+    private final Vertex vertex;
+
+    public StartRoom(final DungeonAdventure game, Vertex vertex) {
         // allows for access to the different rooms of root's vertices
         this.game = game;
-        this.root = root;
+        this.vertex = vertex;
     }
 
     @Override
@@ -22,9 +23,10 @@ public class StartRoom implements Screen {
 
     @Override
     public void render(float delta) {
-        this.root.vertices[0].screensupplier.get();
-        // returns a screen
-
+        /*Vertex topDoor = vertex.vertices[1];
+        Screen nextRoom = topDoor.screenFactory.apply(game, topDoor);
+        game.setScreen(nextRoom);*/
+        // creates an instance of that screen within this room
 
         ScreenUtils.clear(Color.BLACK);
 
@@ -38,7 +40,7 @@ public class StartRoom implements Screen {
         game.batch.end();
 
         // if screen has been touched, then dispose of the current menu and set screen to a GameScreen instance
-        if (Gdx.input.isTouched()){
+        if (Gdx.input.isTouched()) {
             game.setScreen(new GameScreen(game));
             dispose();
         }

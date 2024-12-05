@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class EndScreen implements Screen {
     // only parameter necessary for this game is an instance of Drop, so we can use its methods and fields
     final DungeonAdventure game;
+
     public EndScreen(final DungeonAdventure game) {
         this.game = game;
     }
@@ -32,7 +33,7 @@ public class EndScreen implements Screen {
         game.batch.end();
 
         // if screen has been touched, then put the player back in the beginning of the room which they died in
-        if (Gdx.input.isTouched()){
+        if (Gdx.input.isTouched()) {
             game.setScreen(new GameScreen(game));
             dispose();
         }

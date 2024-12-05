@@ -4,11 +4,15 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class EnemyRoom1 implements Screen{
+public class EnemyRoom1 implements Screen {
 
     final DungeonAdventure game;
-    public EnemyRoom1(final DungeonAdventure game){
+    private final Vertex vertex;
+
+    public EnemyRoom1(final DungeonAdventure game, Vertex vertex) {
         this.game = game;
+        this.vertex = vertex;
+
     }
 
     @Override

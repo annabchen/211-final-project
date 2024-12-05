@@ -11,15 +11,18 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 public class PuzzleRoom1 implements Screen {
     final DungeonAdventure game;
+    private final Vertex vertex;
     Texture playerTexture;
     Sprite playerSprite;
-    Texture
-    public PuzzleRoom1(final DungeonAdventure game){
+
+    public PuzzleRoom1(final DungeonAdventure game, Vertex vertex) {
         this.game = game;
 
         playerTexture = new Texture("player.jpeg");
         playerSprite = new Sprite(playerTexture);
         playerSprite.setSize(1, 1);
+        this.vertex = vertex;
+
     }
 
     @Override
@@ -41,13 +44,13 @@ public class PuzzleRoom1 implements Screen {
         game.batch.end();
 
         // if screen has been touched, then put the player back in the beginning of the room which they died in
-        if (Gdx.input.isTouched()){
+        if (Gdx.input.isTouched()) {
             game.setScreen(new GameScreen(game));
             dispose();
         }
     }
 
-    private void logic(){
+    private void logic() {
         // store worldWidth and worldHeight as local variables
         float worldWidth = game.viewport.getWorldWidth();
         float worldHeight = game.viewport.getWorldHeight();
@@ -60,39 +63,39 @@ public class PuzzleRoom1 implements Screen {
         playerSprite.setY(MathUtils.clamp(playerSprite.getY(), 0, worldHeight - playerHeight));
     }
 
-    private void input(){
+    private void input() {
         // dictates how fast the player moves
         float speed = 4f;
         float delta = Gdx.graphics.getDeltaTime();
 
         // check if a key is pressed every time a frame is drawn
         // start with diagonals
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.UP)) {
             // move the player left + up
             playerSprite.translateX(-speed * delta);
             playerSprite.translateY(speed * delta);
-        } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.UP)) {
             // move player right + up
             playerSprite.translateX(speed * delta);
             playerSprite.translateY(speed * delta);
-        } else if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             // move player left + down
             playerSprite.translateX(-speed * delta);
             playerSprite.translateY(-speed * delta);
-        } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             // move player right + down
             playerSprite.translateX(speed * delta);
             playerSprite.translateY(-speed * delta);
-        }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             // move the player right
             playerSprite.translateX(speed * delta);
-        } else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             // move the player left
             playerSprite.translateX(-speed * delta);
-        } else if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             // move player up
             playerSprite.translateY(speed * delta);
-        } else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             // move player down
             playerSprite.translateY(-speed * delta);
         }
