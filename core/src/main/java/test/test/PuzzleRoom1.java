@@ -45,7 +45,7 @@ public class PuzzleRoom1 implements Screen {
 
         // if screen has been touched, then put the player back in the beginning of the room which they died in
         if (Gdx.input.isTouched()) {
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new GameScreen(game, vertex));
             dispose();
         }
     }

@@ -41,7 +41,7 @@ public class StartRoom implements Screen {
 
         // if screen has been touched, then dispose of the current menu and set screen to a GameScreen instance
         if (Gdx.input.isTouched()) {
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new GameScreen(game, vertex));
             dispose();
         }
     }

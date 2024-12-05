@@ -38,10 +38,15 @@ public class GameScreen implements Screen {
     Rectangle playerRectangle;
     Rectangle enemyRectangle;
     Rectangle enemyRectangle2;
+    Texture doorTexture;
+    Rectangle doorRectangle;
+    Sprite doorSprite;
     int health = 100;
+    Vertex vertex;
 
-    public GameScreen(final DungeonAdventure game) {
+    public GameScreen(final DungeonAdventure game, Vertex vertex) {
         this.game = game;
+        this.vertex = vertex;
 
         // loads the assets into memory after libgdx has started
         backgroundTexture = new Texture("background.jpeg");
@@ -67,6 +72,12 @@ public class GameScreen implements Screen {
         playerRectangle = new Rectangle();
         enemyRectangle = new Rectangle();
         enemyRectangle2 = new Rectangle();
+
+        doorRectangle = new Rectangle();
+        doorTexture = new Texture("door.png");
+        doorSprite = new Sprite(doorTexture);
+        doorSprite.setSize(1,1);
+
     }
 
 
@@ -140,6 +151,16 @@ public class GameScreen implements Screen {
         float playerHeight = playerSprite.getHeight();
         // enemy logic
         float delta = Gdx.graphics.getDeltaTime();
+
+        doorSprite.setX(worldWidth/2);
+        doorSprite.setY(worldHeight/2);
+        doorRectangle.set(doorSprite.getX(), doorSprite.getY(), doorSprite.getWidth(), doorSprite.getHeight());
+        if (playerRectangle.overlaps(doorRectangle)){
+            Vertex topDoor = vertex.vertices[1];
+            Screen nextRoom = topDoor.screenFactory.apply(game, topDoor);
+            game.setScreen(nextRoom);
+            dispose();
+        }
 
         // use clamp method to prevent user from going outside of 0 and worldwidth minus one unit from the right
         playerSprite.setX(MathUtils.clamp(playerSprite.getX(), 0, worldWidth - playerWidth));
@@ -217,6 +238,8 @@ public class GameScreen implements Screen {
         playerSprite.draw(game.batch);
         // display enemies caught in upper left corner
         game.font.draw(game.batch, "Health: " + health, 0, worldHeight);
+        doorSprite.draw(game.batch);
+
 
         // draw each enemy
         for (Sprite enemySprite : enemySprites) {

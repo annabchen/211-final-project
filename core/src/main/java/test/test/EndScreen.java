@@ -33,10 +33,10 @@ public class EndScreen implements Screen {
         game.batch.end();
 
         // if screen has been touched, then put the player back in the beginning of the room which they died in
-        if (Gdx.input.isTouched()) {
-            game.setScreen(new GameScreen(game));
+        /*if (Gdx.input.isTouched()) {
+            game.setScreen(new GameScreen(game, vertex));
             dispose();
-        }
+        }*/
     }
 
     @Override
