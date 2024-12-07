@@ -105,8 +105,8 @@ public class EnemyRoom2 implements Screen {
         bullet_emitter1 = new Vector2();
         bullet_emitter2 = new Vector2();
 
-        float worldWidth = game.viewport.getWorldWidth();
-        float worldHeight = game.viewport.getWorldHeight();
+        worldWidth = game.viewport.getWorldWidth();
+        worldHeight = game.viewport.getWorldHeight();
 
         bullet_emitter1.set(worldWidth/2,worldHeight/2);
         //bullet_emitter1.set(MathUtils.random(0f, worldWidth), MathUtils.random(0f, worldHeight));
