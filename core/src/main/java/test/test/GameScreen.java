@@ -41,6 +41,12 @@ public class GameScreen implements Screen {
     Texture doorTexture;
     Rectangle doorRectangle;
     Sprite doorSprite;
+    Texture door2Texture;
+    Rectangle door2Rectangle;
+    Sprite door2Sprite;
+    Texture door3Texture;
+    Rectangle door3Rectangle;
+    Sprite door3Sprite;
     int health = 100;
     Vertex vertex;
 
@@ -78,6 +84,15 @@ public class GameScreen implements Screen {
         doorSprite = new Sprite(doorTexture);
         doorSprite.setSize(1,1);
 
+        door2Rectangle = new Rectangle();
+        door2Texture = new Texture("door2.png");
+        door2Sprite = new Sprite(door2Texture);
+        door2Sprite.setSize(1,1);
+
+        door3Rectangle = new Rectangle();
+        door3Texture = new Texture("door3.png");
+        door3Sprite = new Sprite(door3Texture);
+        door3Sprite.setSize(1,1);
     }
 
 
@@ -153,11 +168,31 @@ public class GameScreen implements Screen {
         float delta = Gdx.graphics.getDeltaTime();
 
         doorSprite.setX(worldWidth/2);
-        doorSprite.setY(worldHeight/2);
+        doorSprite.setY(worldHeight - doorSprite.getHeight());
         doorRectangle.set(doorSprite.getX(), doorSprite.getY(), doorSprite.getWidth(), doorSprite.getHeight());
         if (playerRectangle.overlaps(doorRectangle)){
-            Vertex topDoor = vertex.vertices[1];
+            Vertex topDoor = vertex.vertices[0];
             Screen nextRoom = topDoor.screenFactory.apply(game, topDoor);
+            game.setScreen(nextRoom);
+            dispose();
+        }
+
+        door2Sprite.setX(worldWidth/2 - (door2Sprite.getWidth()*2));
+        door2Sprite.setY(worldHeight - doorSprite.getHeight());
+        door2Rectangle.set(door2Sprite.getX(), door2Sprite.getY(), door2Sprite.getWidth(), door2Sprite.getHeight());
+        if (playerRectangle.overlaps(door2Rectangle)){
+            Vertex leftDoor = vertex.vertices[1];
+            Screen nextRoom = leftDoor.screenFactory.apply(game, leftDoor);
+            game.setScreen(nextRoom);
+            dispose();
+        }
+
+        door3Sprite.setX(worldWidth/2 + (door3Sprite.getWidth()*2));
+        door3Sprite.setY(worldHeight - door3Sprite.getHeight());
+        door3Rectangle.set(door3Sprite.getX(), door3Sprite.getY(), door3Sprite.getWidth(), door3Sprite.getHeight());
+        if (playerRectangle.overlaps(door3Rectangle)){
+            Vertex leftDoor = vertex.vertices[2];
+            Screen nextRoom = leftDoor.screenFactory.apply(game, leftDoor);
             game.setScreen(nextRoom);
             dispose();
         }
@@ -239,6 +274,8 @@ public class GameScreen implements Screen {
         // display enemies caught in upper left corner
         game.font.draw(game.batch, "Health: " + health, 0, worldHeight);
         doorSprite.draw(game.batch);
+        door2Sprite.draw(game.batch);
+        door3Sprite.draw(game.batch);
 
 
         // draw each enemy
