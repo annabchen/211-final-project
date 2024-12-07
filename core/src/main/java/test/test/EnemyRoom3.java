@@ -274,17 +274,29 @@ public class EnemyRoom3 implements Screen {
 
         Vector2 direction;
 
-        if (enemyDirection % 4 == 0) {
+        if (enemyDirection % 8 == 0) {
             direction = new Vector2(0, -2f);
             enemyDirection++;
-        } else if (enemyDirection % 4 == 1) {
+        } else if (enemyDirection % 8 == 1) {
+            direction = new Vector2(-2f, -2f);
+            enemyDirection++;
+        } else if (enemyDirection % 8 == 2) {
             direction = new Vector2(-2f, 0);
             enemyDirection++;
-        } else if (enemyDirection % 4 == 2) {
+        } else if (enemyDirection % 8 == 3){
+            direction = new Vector2(-2f, 2f);
+            enemyDirection ++;
+        } else if (enemyDirection % 8 == 4) {
             direction = new Vector2(0, 2f);
             enemyDirection++;
-        } else {
+        } else if (enemyDirection % 8 == 5) {
+            direction = new Vector2(2f, 2f);
+            enemyDirection++;
+        } else if (enemyDirection % 8 == 6) {
             direction = new Vector2(2f, 0);
+            enemyDirection++;
+        } else {
+            direction = new Vector2(2f, -2f);
             enemyDirection = 0;
         }
 

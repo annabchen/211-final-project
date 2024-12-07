@@ -41,14 +41,14 @@ public class EnemyRoom2 implements Screen {
     Rectangle enemyRectangle;
     Rectangle enemyRectangle2;
     Texture doorTexture;
-    Rectangle doorRectangle;
-    Sprite doorSprite;
+    Rectangle doorTopRectangle;
+    Sprite doorTopSprite;
     Texture door2Texture;
-    Rectangle door2Rectangle;
-    Sprite door2Sprite;
+    Rectangle doorLeftRectangle;
+    Sprite doorLeftSprite;
     Texture door3Texture;
-    Rectangle door3Rectangle;
-    Sprite door3Sprite;
+    Rectangle doorRightRectangle;
+    Sprite doorRightSprite;
     int health = 100;
     Vertex vertex;
     Vector2 bullet_emitter1;
@@ -87,20 +87,20 @@ public class EnemyRoom2 implements Screen {
         enemyRectangle = new Rectangle();
         enemyRectangle2 = new Rectangle();
 
-        doorRectangle = new Rectangle();
+        doorTopRectangle = new Rectangle();
         doorTexture = new Texture("door.png");
-        doorSprite = new Sprite(doorTexture);
-        doorSprite.setSize(1, 1);
+        doorTopSprite = new Sprite(doorTexture);
+        doorTopSprite.setSize(1, 1);
 
-        door2Rectangle = new Rectangle();
+        doorLeftRectangle = new Rectangle();
         door2Texture = new Texture("door2.png");
-        door2Sprite = new Sprite(door2Texture);
-        door2Sprite.setSize(1, 1);
+        doorLeftSprite = new Sprite(door2Texture);
+        doorLeftSprite.setSize(1, 1);
 
-        door3Rectangle = new Rectangle();
+        doorRightRectangle = new Rectangle();
         door3Texture = new Texture("door3.png");
-        door3Sprite = new Sprite(door3Texture);
-        door3Sprite.setSize(1, 1);
+        doorRightSprite = new Sprite(door3Texture);
+        doorRightSprite.setSize(1, 1);
 
         bullet_emitter1 = new Vector2();
         bullet_emitter2 = new Vector2();
@@ -161,30 +161,31 @@ public class EnemyRoom2 implements Screen {
         // enemy logic
         float delta = Gdx.graphics.getDeltaTime();
 
-        doorSprite.setX(worldWidth / 2);
-        doorSprite.setY(worldHeight - doorSprite.getHeight());
-        doorRectangle.set(doorSprite.getX(), doorSprite.getY(), doorSprite.getWidth(), doorSprite.getHeight());
-        if (playerRectangle.overlaps(doorRectangle)) {
-            Vertex topDoor = vertex.vertices[0];
-            Screen nextRoom = topDoor.screenFactory.apply(game, topDoor);
-            game.setScreen(nextRoom);
-            dispose();
-        }
-
-        door2Sprite.setX(worldWidth / 2 - (door2Sprite.getWidth() * 2));
-        door2Sprite.setY(worldHeight - doorSprite.getHeight());
-        door2Rectangle.set(door2Sprite.getX(), door2Sprite.getY(), door2Sprite.getWidth(), door2Sprite.getHeight());
-        if (playerRectangle.overlaps(door2Rectangle)) {
-            Vertex leftDoor = vertex.vertices[1];
+        doorLeftSprite.setX(worldWidth / 2 - (doorLeftSprite.getWidth() * 2));
+        doorLeftSprite.setY(worldHeight - doorLeftSprite.getHeight());
+        doorLeftRectangle.set(doorLeftSprite.getX(), doorLeftSprite.getY(), doorLeftSprite.getWidth(), doorLeftSprite.getHeight());
+        if (playerRectangle.overlaps(doorLeftRectangle)) {
+            Vertex leftDoor = vertex.vertices[0];
             Screen nextRoom = leftDoor.screenFactory.apply(game, leftDoor);
             game.setScreen(nextRoom);
             dispose();
         }
 
-        door3Sprite.setX(worldWidth / 2 + (door3Sprite.getWidth() * 2));
-        door3Sprite.setY(worldHeight - door3Sprite.getHeight());
-        door3Rectangle.set(door3Sprite.getX(), door3Sprite.getY(), door3Sprite.getWidth(), door3Sprite.getHeight());
-        if (playerRectangle.overlaps(door3Rectangle)) {
+        doorTopSprite.setX(worldWidth / 2);
+        doorTopSprite.setY(worldHeight - doorTopSprite.getHeight());
+        doorTopRectangle.set(doorTopSprite.getX(), doorTopSprite.getY(), doorTopSprite.getWidth(), doorTopSprite.getHeight());
+        if (playerRectangle.overlaps(doorTopRectangle)) {
+            Vertex topDoor = vertex.vertices[1];
+            Screen nextRoom = topDoor.screenFactory.apply(game, topDoor);
+            System.out.println("entering left door");
+            game.setScreen(nextRoom);
+            dispose();
+        }
+
+        doorRightSprite.setX(worldWidth / 2 + (doorRightSprite.getWidth() * 2));
+        doorRightSprite.setY(worldHeight - doorRightSprite.getHeight());
+        doorRightRectangle.set(doorRightSprite.getX(), doorRightSprite.getY(), doorRightSprite.getWidth(), doorRightSprite.getHeight());
+        if (playerRectangle.overlaps(doorRightRectangle)) {
             Vertex leftDoor = vertex.vertices[2];
             Screen nextRoom = leftDoor.screenFactory.apply(game, leftDoor);
             game.setScreen(nextRoom);
@@ -246,9 +247,9 @@ public class EnemyRoom2 implements Screen {
         playerSprite.draw(game.batch);
         // display enemies caught in upper left corner
         game.font.draw(game.batch, "Health: " + health, 0, worldHeight);
-        doorSprite.draw(game.batch);
-        door2Sprite.draw(game.batch);
-        door3Sprite.draw(game.batch);
+        doorTopSprite.draw(game.batch);
+        doorLeftSprite.draw(game.batch);
+        doorRightSprite.draw(game.batch);
 
 
         // draw each enemy
