@@ -58,17 +58,17 @@ public class StartRoom implements Screen {
         doorTopRectangle = new Rectangle();
         doorTexture = new Texture("door.png");
         doorTopSprite = new Sprite(doorTexture);
-        doorTopSprite.setSize(1,1);
+        doorTopSprite.setSize(1, 1);
 
         doorLeftRectangle = new Rectangle();
         door2Texture = new Texture("door2.png");
         doorLeftSprite = new Sprite(door2Texture);
-        doorLeftSprite.setSize(1,1);
+        doorLeftSprite.setSize(1, 1);
 
         doorRightRectangle = new Rectangle();
         door3Texture = new Texture("door3.png");
         doorRightSprite = new Sprite(door3Texture);
-        doorRightSprite.setSize(1,1);
+        doorRightSprite.setSize(1, 1);
     }
 
 
@@ -134,20 +134,20 @@ public class StartRoom implements Screen {
         // enemy logic
         float delta = Gdx.graphics.getDeltaTime();
 
-        doorLeftSprite.setX(worldWidth/2 - (doorLeftSprite.getWidth()*2));
+        doorLeftSprite.setX(worldWidth / 2 - (doorLeftSprite.getWidth() * 2));
         doorLeftSprite.setY(worldHeight - doorTopSprite.getHeight());
         doorLeftRectangle.set(doorLeftSprite.getX(), doorLeftSprite.getY(), doorLeftSprite.getWidth(), doorLeftSprite.getHeight());
-        if (playerRectangle.overlaps(doorLeftRectangle)){
+        if (playerRectangle.overlaps(doorLeftRectangle)) {
             Vertex leftDoor = vertex.vertices[0];
             Screen nextRoom = leftDoor.screenFactory.apply(game, leftDoor);
             game.setScreen(nextRoom);
             dispose();
         }
 
-        doorTopSprite.setX(worldWidth/2);
+        doorTopSprite.setX(worldWidth / 2);
         doorTopSprite.setY(worldHeight - doorTopSprite.getHeight());
         doorTopRectangle.set(doorTopSprite.getX(), doorTopSprite.getY(), doorTopSprite.getWidth(), doorTopSprite.getHeight());
-        if (playerRectangle.overlaps(doorTopRectangle)){
+        if (playerRectangle.overlaps(doorTopRectangle)) {
             Vertex topDoor = vertex.vertices[1];
             Screen nextRoom = topDoor.screenFactory.apply(game, topDoor);
             game.setScreen(nextRoom);
@@ -155,10 +155,10 @@ public class StartRoom implements Screen {
             dispose();
         }
 
-        doorRightSprite.setX(worldWidth/2 + (doorRightSprite.getWidth()*2));
+        doorRightSprite.setX(worldWidth / 2 + (doorRightSprite.getWidth() * 2));
         doorRightSprite.setY(worldHeight - doorRightSprite.getHeight());
         doorRightRectangle.set(doorRightSprite.getX(), doorRightSprite.getY(), doorRightSprite.getWidth(), doorRightSprite.getHeight());
-        if (playerRectangle.overlaps(doorRightRectangle)){
+        if (playerRectangle.overlaps(doorRightRectangle)) {
             Vertex leftDoor = vertex.vertices[2];
             Screen nextRoom = leftDoor.screenFactory.apply(game, leftDoor);
             game.setScreen(nextRoom);

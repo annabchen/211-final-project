@@ -90,17 +90,17 @@ public class EnemyRoom2 implements Screen {
         doorRectangle = new Rectangle();
         doorTexture = new Texture("door.png");
         doorSprite = new Sprite(doorTexture);
-        doorSprite.setSize(1,1);
+        doorSprite.setSize(1, 1);
 
         door2Rectangle = new Rectangle();
         door2Texture = new Texture("door2.png");
         door2Sprite = new Sprite(door2Texture);
-        door2Sprite.setSize(1,1);
+        door2Sprite.setSize(1, 1);
 
         door3Rectangle = new Rectangle();
         door3Texture = new Texture("door3.png");
         door3Sprite = new Sprite(door3Texture);
-        door3Sprite.setSize(1,1);
+        door3Sprite.setSize(1, 1);
 
         bullet_emitter1 = new Vector2();
         bullet_emitter2 = new Vector2();
@@ -108,7 +108,7 @@ public class EnemyRoom2 implements Screen {
         worldWidth = game.viewport.getWorldWidth();
         worldHeight = game.viewport.getWorldHeight();
 
-        bullet_emitter1.set(worldWidth/2,worldHeight/2);
+        bullet_emitter1.set(worldWidth / 2, worldHeight / 2);
         //bullet_emitter1.set(MathUtils.random(0f, worldWidth), MathUtils.random(0f, worldHeight));
         bullet_emitter2.set(MathUtils.random(0f, worldWidth), MathUtils.random(0f, worldHeight));
 
@@ -139,13 +139,16 @@ public class EnemyRoom2 implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             // move the player right
             playerSprite.translateX(speed * delta);
-        } if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             // move the player left
             playerSprite.translateX(-speed * delta);
-        } if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             // move player up
             playerSprite.translateY(speed * delta);
-        } if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             // move player down
             playerSprite.translateY(-speed * delta);
         }
@@ -158,30 +161,30 @@ public class EnemyRoom2 implements Screen {
         // enemy logic
         float delta = Gdx.graphics.getDeltaTime();
 
-        doorSprite.setX(worldWidth/2);
+        doorSprite.setX(worldWidth / 2);
         doorSprite.setY(worldHeight - doorSprite.getHeight());
         doorRectangle.set(doorSprite.getX(), doorSprite.getY(), doorSprite.getWidth(), doorSprite.getHeight());
-        if (playerRectangle.overlaps(doorRectangle)){
+        if (playerRectangle.overlaps(doorRectangle)) {
             Vertex topDoor = vertex.vertices[0];
             Screen nextRoom = topDoor.screenFactory.apply(game, topDoor);
             game.setScreen(nextRoom);
             dispose();
         }
 
-        door2Sprite.setX(worldWidth/2 - (door2Sprite.getWidth()*2));
+        door2Sprite.setX(worldWidth / 2 - (door2Sprite.getWidth() * 2));
         door2Sprite.setY(worldHeight - doorSprite.getHeight());
         door2Rectangle.set(door2Sprite.getX(), door2Sprite.getY(), door2Sprite.getWidth(), door2Sprite.getHeight());
-        if (playerRectangle.overlaps(door2Rectangle)){
+        if (playerRectangle.overlaps(door2Rectangle)) {
             Vertex leftDoor = vertex.vertices[1];
             Screen nextRoom = leftDoor.screenFactory.apply(game, leftDoor);
             game.setScreen(nextRoom);
             dispose();
         }
 
-        door3Sprite.setX(worldWidth/2 + (door3Sprite.getWidth()*2));
+        door3Sprite.setX(worldWidth / 2 + (door3Sprite.getWidth() * 2));
         door3Sprite.setY(worldHeight - door3Sprite.getHeight());
         door3Rectangle.set(door3Sprite.getX(), door3Sprite.getY(), door3Sprite.getWidth(), door3Sprite.getHeight());
-        if (playerRectangle.overlaps(door3Rectangle)){
+        if (playerRectangle.overlaps(door3Rectangle)) {
             Vertex leftDoor = vertex.vertices[2];
             Screen nextRoom = leftDoor.screenFactory.apply(game, leftDoor);
             game.setScreen(nextRoom);
@@ -271,20 +274,17 @@ public class EnemyRoom2 implements Screen {
 
         Vector2 direction;
 
-        if(enemyDirection%4 == 0){
+        if (enemyDirection % 4 == 0) {
             direction = new Vector2(0, -2f);
             enemyDirection++;
-        }
-        else if(enemyDirection%4 == 1){
+        } else if (enemyDirection % 4 == 1) {
             direction = new Vector2(-2f, 0);
             enemyDirection++;
-        }
-        else if(enemyDirection%4 == 2){
+        } else if (enemyDirection % 4 == 2) {
             direction = new Vector2(0, 2f);
             enemyDirection++;
-        }
-        else{
-            direction = new Vector2(2f,0);
+        } else {
+            direction = new Vector2(2f, 0);
             enemyDirection = 0;
         }
 
