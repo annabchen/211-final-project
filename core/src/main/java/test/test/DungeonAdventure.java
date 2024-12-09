@@ -38,6 +38,7 @@ public class DungeonAdventure extends Game {
         Vertex treasure3 = new Vertex(TreasureRoom3::new);
         Vertex finalRoom = new Vertex(FinalRoom::new);
 
+        Vertex puzzle1ending = new Vertex(PuzzleRoom1ending::new);
         // establishing connections!!!!!
         root.setVertices(new Vertex[]{puzzle1, enemy1, treasure1});
 

@@ -151,7 +151,6 @@ public class StartRoom implements Screen {
             Vertex topDoor = vertex.vertices[1];
             Screen nextRoom = topDoor.screenFactory.apply(game, topDoor);
             game.setScreen(nextRoom);
-            System.out.println("entering left door");
             dispose();
         }
 
