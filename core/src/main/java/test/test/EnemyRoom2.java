@@ -34,7 +34,7 @@ public class EnemyRoom2 implements Screen {
     // stores vertically dropping enemies
     Array<Enemy> enemies;
     // stores horizontal enemies
-    Array<Sprite> enemySprites2;
+    Array<Enemy> enemies2;
     float enemyTimer;
     // for collision
     Rectangle playerRectangle;
@@ -56,6 +56,7 @@ public class EnemyRoom2 implements Screen {
     float worldWidth;
     float worldHeight;
     int enemyDirection;
+    int enemyDirection2;
 
 
     public EnemyRoom2(final DungeonAdventure game, Vertex vertex) {
@@ -81,7 +82,7 @@ public class EnemyRoom2 implements Screen {
 
         // use a list to keep track of enemies
         enemies = new Array<>();
-        enemySprites2 = new Array<>();
+        enemies2 = new Array<>();
 
         playerRectangle = new Rectangle();
         enemyRectangle = new Rectangle();
@@ -108,11 +109,12 @@ public class EnemyRoom2 implements Screen {
         worldWidth = game.viewport.getWorldWidth();
         worldHeight = game.viewport.getWorldHeight();
 
-        bullet_emitter1.set(worldWidth / 2, worldHeight / 2);
-        //bullet_emitter1.set(MathUtils.random(0f, worldWidth), MathUtils.random(0f, worldHeight));
-        bullet_emitter2.set(MathUtils.random(0f, worldWidth), MathUtils.random(0f, worldHeight));
+        bullet_emitter1.set(3, worldHeight - 3);
+        bullet_emitter2.set(worldWidth - 3, 3);
 
         enemyDirection = 0;
+        enemyDirection2 = 0;
+
     }
 
 
@@ -158,7 +160,6 @@ public class EnemyRoom2 implements Screen {
         // store player size
         float playerWidth = playerSprite.getWidth();
         float playerHeight = playerSprite.getHeight();
-        // enemy logic
         float delta = Gdx.graphics.getDeltaTime();
 
         doorLeftSprite.setX(worldWidth / 2 - (doorLeftSprite.getWidth() * 2));
@@ -224,16 +225,39 @@ public class EnemyRoom2 implements Screen {
             }
         }
 
+        for (int i = enemies2.size - 1; i >= 0; i--) {
+            Enemy enemy2 = enemies2.get(i);
+            Sprite enemySprite2 = enemy2.sprite;
+            float enemyWidth = enemySprite2.getWidth();
+            float enemyHeight = enemySprite2.getHeight();
+
+            enemy2.move();
+
+            // apply the enemy position and size to the enemyRectangle
+            enemyRectangle.set(enemySprite2.getX(), enemySprite2.getY(), enemyWidth, enemyHeight);
+            // remove if the top of the enemy goes below the bottom of the window
+            if (enemySprite2.getY() < -enemyHeight) {
+                enemies2.removeIndex(i);
+            } else if (playerRectangle.overlaps(enemyRectangle)) { // check for overlap
+                health -= 5;
+                if (health <= 0) {
+                    game.setScreen(new EndScreen(game));
+                    dispose();
+                }
+                enemies2.removeIndex(i); // remove enemy
+                enemySound.play();
+            }
+        }
+
         // spacing out the enemy
         enemyTimer += delta;
-        if (enemyTimer > .5f) { // check if it has been over a second
+        if (enemyTimer > .25f) {
             enemyTimer = 0; // reset timer
             createEnemy(); // create enemy
         }
     }
 
     private void draw() {
-        float delta = Gdx.graphics.getDeltaTime();
         // clears screen
         ScreenUtils.clear(Color.BLACK);
         game.viewport.apply();
@@ -256,9 +280,9 @@ public class EnemyRoom2 implements Screen {
         for (Enemy enemy : enemies) {
             enemy.sprite.draw(game.batch);
         }
-        /*for (Sprite enemySprite2 : enemySprites2) {
-            enemySprite2.draw(game.batch);
-        }*/
+        for (Enemy enemy : enemies2) {
+            enemy.sprite.draw(game.batch);
+        }
 
         game.batch.end();
     }
@@ -289,15 +313,33 @@ public class EnemyRoom2 implements Screen {
             enemyDirection = 0;
         }
 
+
         Enemy enemy = new Enemy(enemySprite, direction);
         enemies.add(enemy); // adding it to the list
 
-        /*// create enemy sprite
         Sprite enemySprite2 = new Sprite(enemyTexture);
         enemySprite2.setSize(enemyWidth, enemyHeight);
         enemySprite2.setX(bullet_emitter2.x);
         enemySprite2.setY(bullet_emitter2.y);
-        enemySprites2.add(enemySprite2); // adding it to the list*/
+
+        Vector2 direction2;
+
+        if (enemyDirection2 % 4 == 0) {
+            direction2 = new Vector2(0, -2f);
+            enemyDirection2++;
+        } else if (enemyDirection2 % 4 == 1) {
+            direction2 = new Vector2(-2f, 0);
+            enemyDirection2++;
+        } else if (enemyDirection2 % 4 == 2) {
+            direction2 = new Vector2(0, 2f);
+            enemyDirection2++;
+        } else {
+            direction2 = new Vector2(2f, 0);
+            enemyDirection2 = 0;
+        }
+
+        Enemy enemy2 = new Enemy(enemySprite2, direction2);
+        enemies.add(enemy2);
     }
 
     @Override
