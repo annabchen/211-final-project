@@ -282,7 +282,7 @@ public class EnemyRoom3 implements Screen {
 
         // spacing out the enemy
         enemyTimer += delta;
-        if (enemyTimer > .5f) { // check if it has been over a second
+        if (enemyTimer > .25f) {
             enemyTimer = 0; // reset timer
             createEnemy(); // create enemy
         }
@@ -418,7 +418,7 @@ public class EnemyRoom3 implements Screen {
             enemyDirection3++;
         } else if (enemyDirection3 % 8 == 3){
             direction3 = new Vector2(-2f, 2f);
-            enemyDirection ++;
+            enemyDirection3 ++;
         } else if (enemyDirection3 % 8 == 4) {
             direction3 = new Vector2(0, 2f);
             enemyDirection3++;
