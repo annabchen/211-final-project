@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-public class TreasureRoom1 implements Screen {
+public class TreasureRoom1  implements Screen {
     final DungeonAdventure game;
     Texture backgroundTexture;
     Texture playerTexture;
@@ -37,8 +37,8 @@ public class TreasureRoom1 implements Screen {
     Sprite doorRightSprite;
     int health = 100;
     Vertex vertex;
-    final int TILE_ROWS = 20;
-    final int TILE_COLS = 32;
+    final int TILE_ROWS = 10;
+    final int TILE_COLS = 16;
     ShapeRenderer shapeRenderer;
     int[][] maze;
     float worldWidth;
@@ -59,7 +59,7 @@ public class TreasureRoom1 implements Screen {
         music.setVolume(.5f);
 
         playerSprite = new Sprite(playerTexture);
-        playerSprite.setSize(.4f, .4f);
+        playerSprite.setSize(.7f, .7f);
 
         playerRectangle = new Rectangle();
 
@@ -84,26 +84,16 @@ public class TreasureRoom1 implements Screen {
         worldHeight = game.viewport.getWorldHeight();
 
         int [][] maze = new int[][]{
-            {1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-            {1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1},
-            {1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-            {1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-            {1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1},
-            {1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1},
-            {1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1},
-            {1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1},
-            {1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1},
-            {1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1},
-            {1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1},
-            {1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1},
-            {1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-            {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-            {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+            {1,1,1,0,0,1,1,0,0,1,1,0,0,1,1,1},
+            {1,0,0,0,0,1,0,0,1,0,1,0,0,0,0,1},
+            {1,0,1,1,1,1,0,1,1,1,0,1,1,1,0,1},
+            {1,0,1,1,0,1,0,0,0,0,0,0,1,0,0,1},
+            {1,0,1,1,0,1,1,1,1,1,0,0,1,0,0,1},
+            {1,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1},
+            {1,1,1,1,0,0,0,1,0,0,0,0,0,1,0,1},
+            {1,0,0,0,1,1,1,1,1,1,1,1,1,1,0,1},
+            {0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
+            {0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
         };
 
         this.maze = new int[maze.length][maze[0].length];
@@ -181,7 +171,7 @@ public class TreasureRoom1 implements Screen {
         float playerWidth = playerSprite.getWidth();
         float playerHeight = playerSprite.getHeight();
 
-        doorLeftSprite.setX(worldWidth / 2 - (wallRectWidth * 8));
+        doorLeftSprite.setX(worldWidth / 2 - (wallRectWidth * 4));
         doorLeftSprite.setY(worldHeight - doorLeftSprite.getHeight());
         doorLeftRectangle.set(doorLeftSprite.getX(), doorLeftSprite.getY(), doorLeftSprite.getWidth(), doorLeftSprite.getHeight());
         if (playerRectangle.overlaps(doorLeftRectangle)) {
@@ -191,7 +181,7 @@ public class TreasureRoom1 implements Screen {
             dispose();
         }
 
-        doorTopSprite.setX(worldWidth / 2);
+        doorTopSprite.setX(worldWidth / 2 - wallRectWidth);
         doorTopSprite.setY(worldHeight - doorTopSprite.getHeight());
         doorTopRectangle.set(doorTopSprite.getX(), doorTopSprite.getY(), doorTopSprite.getWidth(), doorTopSprite.getHeight());
         if (playerRectangle.overlaps(doorTopRectangle)) {
@@ -202,7 +192,7 @@ public class TreasureRoom1 implements Screen {
             dispose();
         }
 
-        doorRightSprite.setX(worldWidth / 2 + (wallRectWidth * 8));
+        doorRightSprite.setX(worldWidth / 2 + (wallRectWidth * 3));
         doorRightSprite.setY(worldHeight - doorRightSprite.getHeight());
         doorRightRectangle.set(doorRightSprite.getX(), doorRightSprite.getY(), doorRightSprite.getWidth(), doorRightSprite.getHeight());
         if (playerRectangle.overlaps(doorRightRectangle)) {
