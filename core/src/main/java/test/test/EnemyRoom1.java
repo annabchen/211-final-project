@@ -251,7 +251,7 @@ public class EnemyRoom1 implements Screen {
 
         // spacing out the enemy
         enemyTimer += delta;
-        if (enemyTimer > .5f) { // check if it has been over a second
+        if (enemyTimer > 1f) { // check if it has been over a second
             enemyTimer = 0; // reset timer
             createEnemy(); // create enemy
         }

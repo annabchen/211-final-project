@@ -34,7 +34,8 @@ public class EnemyRoom3 implements Screen {
     // stores vertically dropping enemies
     Array<Enemy> enemies;
     // stores horizontal enemies
-    Array<Sprite> enemySprites2;
+    Array<Enemy> enemies2;
+    Array<Enemy> enemies3;
     float enemyTimer;
     // for collision
     Rectangle playerRectangle;
@@ -53,9 +54,12 @@ public class EnemyRoom3 implements Screen {
     Vertex vertex;
     Vector2 bullet_emitter1;
     Vector2 bullet_emitter2;
+    Vector2 bullet_emitter3;
     float worldWidth;
     float worldHeight;
     int enemyDirection;
+    int enemyDirection2;
+    int enemyDirection3;
 
 
     public EnemyRoom3(final DungeonAdventure game, Vertex vertex) {
@@ -81,7 +85,8 @@ public class EnemyRoom3 implements Screen {
 
         // use a list to keep track of enemies
         enemies = new Array<>();
-        enemySprites2 = new Array<>();
+        enemies2 = new Array<>();
+        enemies3 = new Array<>();
 
         playerRectangle = new Rectangle();
         enemyRectangle = new Rectangle();
@@ -104,15 +109,19 @@ public class EnemyRoom3 implements Screen {
 
         bullet_emitter1 = new Vector2();
         bullet_emitter2 = new Vector2();
+        bullet_emitter3 = new Vector2();
 
         worldWidth = game.viewport.getWorldWidth();
         worldHeight = game.viewport.getWorldHeight();
 
         bullet_emitter1.set(worldWidth / 2, worldHeight / 2);
         //bullet_emitter1.set(MathUtils.random(0f, worldWidth), MathUtils.random(0f, worldHeight));
-        bullet_emitter2.set(MathUtils.random(0f, worldWidth), MathUtils.random(0f, worldHeight));
+        bullet_emitter2.set(3, worldHeight/2);
+        bullet_emitter3.set(worldWidth-3, worldHeight/2);
 
         enemyDirection = 0;
+        enemyDirection2 = 0;
+        enemyDirection3 = 0;
     }
 
 
@@ -223,6 +232,54 @@ public class EnemyRoom3 implements Screen {
             }
         }
 
+        for (int i = enemies2.size - 1; i >= 0; i--) {
+            Enemy enemy = enemies2.get(i);
+            Sprite enemySprite = enemy.sprite;
+            float enemyWidth = enemySprite.getWidth();
+            float enemyHeight = enemySprite.getHeight();
+
+            enemy.move();
+
+            // apply the enemy position and size to the enemyRectangle
+            enemyRectangle.set(enemySprite.getX(), enemySprite.getY(), enemyWidth, enemyHeight);
+            // remove if the top of the enemy goes below the bottom of the window
+            if (enemySprite.getY() < -enemyHeight) {
+                enemies2.removeIndex(i);
+            } else if (playerRectangle.overlaps(enemyRectangle)) { // check for overlap
+                health -= 5;
+                if (health <= 0) {
+                    game.setScreen(new EndScreen(game));
+                    dispose();
+                }
+                enemies2.removeIndex(i); // remove enemy
+                enemySound.play();
+            }
+        }
+
+        for (int i = enemies3.size - 1; i >= 0; i--) {
+            Enemy enemy = enemies3.get(i);
+            Sprite enemySprite = enemy.sprite;
+            float enemyWidth = enemySprite.getWidth();
+            float enemyHeight = enemySprite.getHeight();
+
+            enemy.move();
+
+            // apply the enemy position and size to the enemyRectangle
+            enemyRectangle.set(enemySprite.getX(), enemySprite.getY(), enemyWidth, enemyHeight);
+            // remove if the top of the enemy goes below the bottom of the window
+            if (enemySprite.getY() < -enemyHeight) {
+                enemies3.removeIndex(i);
+            } else if (playerRectangle.overlaps(enemyRectangle)) { // check for overlap
+                health -= 5;
+                if (health <= 0) {
+                    game.setScreen(new EndScreen(game));
+                    dispose();
+                }
+                enemies3.removeIndex(i); // remove enemy
+                enemySound.play();
+            }
+        }
+
         // spacing out the enemy
         enemyTimer += delta;
         if (enemyTimer > .5f) { // check if it has been over a second
@@ -255,9 +312,12 @@ public class EnemyRoom3 implements Screen {
         for (Enemy enemy : enemies) {
             enemy.sprite.draw(game.batch);
         }
-        /*for (Sprite enemySprite2 : enemySprites2) {
-            enemySprite2.draw(game.batch);
-        }*/
+        for (Enemy enemy : enemies2) {
+            enemy.sprite.draw(game.batch);
+        }
+        for (Enemy enemy : enemies3) {
+            enemy.sprite.draw(game.batch);
+        }
 
         game.batch.end();
     }
@@ -303,12 +363,78 @@ public class EnemyRoom3 implements Screen {
         Enemy enemy = new Enemy(enemySprite, direction);
         enemies.add(enemy); // adding it to the list
 
-        /*// create enemy sprite
+
         Sprite enemySprite2 = new Sprite(enemyTexture);
         enemySprite2.setSize(enemyWidth, enemyHeight);
         enemySprite2.setX(bullet_emitter2.x);
         enemySprite2.setY(bullet_emitter2.y);
-        enemySprites2.add(enemySprite2); // adding it to the list*/
+
+        Vector2 direction2;
+
+        if (enemyDirection2 % 8 == 0) {
+            direction2 = new Vector2(0, -2f);
+            enemyDirection2++;
+        } else if (enemyDirection2 % 8 == 1) {
+            direction2 = new Vector2(-2f, -2f);
+            enemyDirection2++;
+        } else if (enemyDirection2 % 8 == 2) {
+            direction2 = new Vector2(-2f, 0);
+            enemyDirection2++;
+        } else if (enemyDirection2 % 8 == 3){
+            direction2 = new Vector2(-2f, 2f);
+            enemyDirection2 ++;
+        } else if (enemyDirection2 % 8 == 4) {
+            direction2 = new Vector2(0, 2f);
+            enemyDirection2++;
+        } else if (enemyDirection2 % 8 == 5) {
+            direction2 = new Vector2(2f, 2f);
+            enemyDirection2++;
+        } else if (enemyDirection2 % 8 == 6) {
+            direction2 = new Vector2(2f, 0);
+            enemyDirection2++;
+        } else {
+            direction2 = new Vector2(2f, -2f);
+            enemyDirection2 = 0;
+        }
+        Enemy enemy2 = new Enemy(enemySprite2, direction2);
+        enemies2.add(enemy2); // adding it to the list
+
+
+        Sprite enemySprite3 = new Sprite(enemyTexture);
+        enemySprite3.setSize(enemyWidth, enemyHeight);
+        enemySprite3.setX(bullet_emitter3.x);
+        enemySprite3.setY(bullet_emitter3.y);
+
+        Vector2 direction3;
+
+        if (enemyDirection3 % 8 == 0) {
+            direction3 = new Vector2(0, -2f);
+            enemyDirection3++;
+        } else if (enemyDirection3 % 8 == 1) {
+            direction3 = new Vector2(-2f, -2f);
+            enemyDirection3++;
+        } else if (enemyDirection3 % 8 == 2) {
+            direction3 = new Vector2(-2f, 0);
+            enemyDirection3++;
+        } else if (enemyDirection3 % 8 == 3){
+            direction3 = new Vector2(-2f, 2f);
+            enemyDirection ++;
+        } else if (enemyDirection3 % 8 == 4) {
+            direction3 = new Vector2(0, 2f);
+            enemyDirection3++;
+        } else if (enemyDirection3 % 8 == 5) {
+            direction3 = new Vector2(2f, 2f);
+            enemyDirection3++;
+        } else if (enemyDirection3 % 8 == 6) {
+            direction3 = new Vector2(2f, 0);
+            enemyDirection3++;
+        } else {
+            direction3 = new Vector2(2f, -2f);
+            enemyDirection3 = 0;
+        }
+
+        Enemy enemy3 = new Enemy(enemySprite3, direction3);
+        enemies3.add(enemy3); // adding it to the list
     }
 
     @Override
