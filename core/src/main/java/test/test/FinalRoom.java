@@ -30,7 +30,7 @@ public class FinalRoom implements Screen {
         game.batch.begin();
         // draw text, x and y are in meters
         // how text is rendered to the screen
-        game.font.draw(game.batch, "welcome to da final room", 1, 1.5f);
+        game.font.draw(game.batch, "this is the final room :) thanks for playing!!", 1, 1.5f);
         game.batch.end();
     }
 
