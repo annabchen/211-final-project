@@ -33,7 +33,7 @@ public class StartRoom implements Screen {
     Texture door3Texture;
     Rectangle doorRightRectangle;
     Sprite doorRightSprite;
-    int health = 100;
+
     Vertex vertex;
 
     public StartRoom(final DungeonAdventure game, Vertex vertex) {
@@ -188,7 +188,7 @@ public class StartRoom implements Screen {
         // sprites have their own draw method
         playerSprite.draw(game.batch);
         // display enemies caught in upper left corner
-        game.font.draw(game.batch, "Health: " + health, 0, worldHeight);
+        game.font.draw(game.batch, "Health: " + game.playerHealth, 0, worldHeight);
         doorTopSprite.draw(game.batch);
         doorLeftSprite.draw(game.batch);
         doorRightSprite.draw(game.batch);

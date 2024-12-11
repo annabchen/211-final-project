@@ -47,7 +47,7 @@ public class GameScreen implements Screen {
     Texture door3Texture;
     Rectangle door3Rectangle;
     Sprite door3Sprite;
-    int health = 100;
+
     Vertex vertex;
 
     public GameScreen(final DungeonAdventure game, Vertex vertex) {
@@ -216,8 +216,8 @@ public class GameScreen implements Screen {
             if (enemySprite.getY() < -enemyHeight) {
                 enemySprites.removeIndex(i);
             } else if (playerRectangle.overlaps(enemyRectangle)) { // check for overlap
-                health -= 5;
-                if (health <= 0) {
+                game.playerHealth -= 5;
+                if (game.playerHealth <= 0) {
                     game.setScreen(new EndScreen(game));
                     dispose();
                 }
@@ -238,8 +238,8 @@ public class GameScreen implements Screen {
             if (enemySprite2.getY() < -enemyHeight) {
                 enemySprites2.removeIndex(i);
             } else if (playerRectangle.overlaps(enemyRectangle2)) { // check for overlap
-                health -= 5;
-                if (health <= 0) {
+                game.playerHealth -= 5;
+                if (game.playerHealth <= 0) {
                     game.setScreen(new EndScreen(game));
                     dispose();
                 }
@@ -272,7 +272,7 @@ public class GameScreen implements Screen {
         // sprites have their own draw method
         playerSprite.draw(game.batch);
         // display enemies caught in upper left corner
-        game.font.draw(game.batch, "Health: " + health, 0, worldHeight);
+        game.font.draw(game.batch, "Health: " + game.playerHealth, 0, worldHeight);
         doorSprite.draw(game.batch);
         door2Sprite.draw(game.batch);
         door3Sprite.draw(game.batch);

@@ -35,7 +35,7 @@ public class TreasureRoom1  implements Screen {
     Texture door3Texture;
     Rectangle doorRightRectangle;
     Sprite doorRightSprite;
-    int health = 100;
+
     Vertex vertex;
     final int TILE_ROWS = 10;
     final int TILE_COLS = 16;
@@ -236,7 +236,7 @@ public class TreasureRoom1  implements Screen {
         // sprites have their own draw method
         playerSprite.draw(game.batch);
         // display enemies caught in upper left corner
-        game.font.draw(game.batch, "Health: " + health, 0, worldHeight);
+        game.font.draw(game.batch, "Health: " + game.playerHealth, 0, worldHeight);
         doorTopSprite.draw(game.batch);
         doorLeftSprite.draw(game.batch);
         doorRightSprite.draw(game.batch);

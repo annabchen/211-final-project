@@ -10,11 +10,13 @@ public class DungeonAdventure extends Game {
     public SpriteBatch batch;
     public BitmapFont font;
     public FitViewport viewport;
+    public int playerHealth;
 
     public void create() {
         batch = new SpriteBatch();
         font = new BitmapFont(); // libGDX's default font
         viewport = new FitViewport(16, 10);
+        playerHealth = 100;
 
         // scale font using ratio of viewport height to screen height
         font.setUseIntegerPositions(false);

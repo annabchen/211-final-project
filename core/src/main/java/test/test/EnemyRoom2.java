@@ -49,7 +49,7 @@ public class EnemyRoom2 implements Screen {
     Texture door3Texture;
     Rectangle doorRightRectangle;
     Sprite doorRightSprite;
-    int health = 100;
+
     Vertex vertex;
     Vector2 bullet_emitter1;
     Vector2 bullet_emitter2;
@@ -215,8 +215,8 @@ public class EnemyRoom2 implements Screen {
             if (enemySprite.getY() < -enemyHeight) {
                 enemies.removeIndex(i);
             } else if (playerRectangle.overlaps(enemyRectangle)) { // check for overlap
-                health -= 5;
-                if (health <= 0) {
+                game.playerHealth -= 5;
+                if (game.playerHealth <= 0) {
                     game.setScreen(new EndScreen(game));
                     dispose();
                 }
@@ -239,8 +239,8 @@ public class EnemyRoom2 implements Screen {
             if (enemySprite2.getY() < -enemyHeight) {
                 enemies2.removeIndex(i);
             } else if (playerRectangle.overlaps(enemyRectangle)) { // check for overlap
-                health -= 5;
-                if (health <= 0) {
+                game.playerHealth -= 5;
+                if (game.playerHealth <= 0) {
                     game.setScreen(new EndScreen(game));
                     dispose();
                 }
@@ -270,7 +270,7 @@ public class EnemyRoom2 implements Screen {
         // sprites have their own draw method
         playerSprite.draw(game.batch);
         // display enemies caught in upper left corner
-        game.font.draw(game.batch, "Health: " + health, 0, worldHeight);
+        game.font.draw(game.batch, "Health: " + game.playerHealth, 0, worldHeight);
         doorTopSprite.draw(game.batch);
         doorLeftSprite.draw(game.batch);
         doorRightSprite.draw(game.batch);
