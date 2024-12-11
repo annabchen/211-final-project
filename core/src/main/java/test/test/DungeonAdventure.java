@@ -40,19 +40,19 @@ public class DungeonAdventure extends Game {
 
         Vertex puzzle1ending = new Vertex(PuzzleRoom1ending::new);
         // establishing connections!!!!!
-        root.setVertices(new Vertex[]{puzzle1, enemy1, treasure1});
+        root.setVertices(new Vertex[]{puzzle1, treasure1, enemy1});
 
-        puzzle1.setVertices(new Vertex[]{treasure1, puzzle2, enemy1});
-        enemy1.setVertices(new Vertex[]{puzzle1, enemy2, treasure1});
-        treasure1.setVertices(new Vertex[]{enemy1, treasure2, puzzle1});
+        puzzle1.setVertices(new Vertex[]{puzzle2, treasure1, enemy1});
+        enemy1.setVertices(new Vertex[]{puzzle1, treasure1, enemy2});
+        treasure1.setVertices(new Vertex[]{puzzle1, treasure2, enemy1});
 
-        puzzle2.setVertices(new Vertex[]{treasure2, puzzle3, enemy2});
-        enemy2.setVertices(new Vertex[]{puzzle2, enemy3, treasure2});
-        treasure2.setVertices(new Vertex[]{enemy2, treasure3, puzzle2});
+        puzzle2.setVertices(new Vertex[]{puzzle3, treasure2, enemy2});
+        enemy2.setVertices(new Vertex[]{puzzle2, treasure2, enemy3});
+        treasure2.setVertices(new Vertex[]{puzzle2, treasure3, enemy2});
 
-        puzzle3.setVertices(new Vertex[]{treasure3, finalRoom, enemy3});
-        enemy3.setVertices(new Vertex[]{puzzle3, finalRoom, treasure3});
-        treasure3.setVertices(new Vertex[]{enemy3, finalRoom, puzzle3});
+        puzzle3.setVertices(new Vertex[]{finalRoom, treasure3, enemy3});
+        enemy3.setVertices(new Vertex[]{puzzle3, treasure3, finalRoom});
+        treasure3.setVertices(new Vertex[]{puzzle3,finalRoom, enemy3});
 
         finalRoom.setVertices(new Vertex[]{null, null, null});
 
