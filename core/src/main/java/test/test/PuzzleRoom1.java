@@ -17,8 +17,10 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-import java.util.ArrayList;
+import test.test.util.ArrayList;
+import test.test.util.LinkedList;
 import java.util.Iterator;
+import java.util.List;
 
 public class PuzzleRoom1 implements Screen {
     final DungeonAdventure game;
@@ -46,9 +48,9 @@ public class PuzzleRoom1 implements Screen {
     final int TILE_ROWS = 5;
     final int TILE_COLS = 8;
     ShapeRenderer shapeRenderer;
-    ArrayList<Rectangle> exited;
-    ArrayList<Rectangle> in;
-    ArrayList<Rectangle> notEntered;
+    List<Rectangle> exited;
+    List<Rectangle> in;
+    List<Rectangle> notEntered;
     float worldWidth;
     float worldHeight;
 

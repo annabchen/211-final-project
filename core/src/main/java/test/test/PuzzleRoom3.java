@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-import java.util.ArrayList;
+import test.test.util.ArrayList;
 import java.util.Iterator;
 
 public class PuzzleRoom3 implements Screen {

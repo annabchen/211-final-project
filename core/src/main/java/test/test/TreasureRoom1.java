@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -46,6 +47,11 @@ public class TreasureRoom1  implements Screen {
     Rectangle wallRectangle;
     float wallRectHeight;
     float wallRectWidth;
+    Texture healTexture;
+    Array<Sprite> heals;
+    int numHeals;
+    Rectangle healRect;
+
 
     public TreasureRoom1(final DungeonAdventure game, Vertex vertex) {
         this.game = game;
@@ -105,6 +111,11 @@ public class TreasureRoom1  implements Screen {
         wallRectHeight = worldHeight / TILE_ROWS;
 
         wallRectangle = new Rectangle();
+
+        healTexture = new Texture("treasure.jpeg");
+        heals = new Array<>();
+        numHeals = 0;
+        healRect = new Rectangle();
     }
 
 
@@ -223,6 +234,7 @@ public class TreasureRoom1  implements Screen {
                 if (maze[i][j] == 1) {
                     shapeRenderer.rect(j * wallRectWidth, i * wallRectHeight, wallRectWidth, wallRectHeight);
                 }
+
             }
 
         }
@@ -242,6 +254,19 @@ public class TreasureRoom1  implements Screen {
         doorRightSprite.draw(game.batch);
 
         game.batch.end();
+    }
+
+    public void createHeal(float x, float y){
+        float healWidth = 1;
+        float healHeight = 1;
+        // create enemy sprite
+        Sprite healSprite = new Sprite(healTexture);
+        healSprite.setSize(healWidth, healHeight);
+        healSprite.setX(x);
+        healSprite.setY(y);
+
+        heals.add(healSprite); // adding it to the list
+        numHeals++;
     }
 
     @Override
